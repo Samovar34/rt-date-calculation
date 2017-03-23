@@ -1,0 +1,32 @@
+{
+  "name": "rt-date-calculation",
+  "version": "0.0.0",
+  "description": "rt date calculation",
+  "main": "gulpfile.js",
+  "scripts": {
+    "start": "gulp",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unscript/rt-date-calculation.git"
+  },
+  "keywords": [
+    "rt",
+    "date",
+    "calculation"
+  ],
+  "author": "unscript",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/unscript/rt-date-calculation/issues"
+  },
+  "homepage": "https://github.com/unscript/rt-date-calculation#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-pug": "^3.3.0",
+    "gulp-sass": "^3.1.0"
+  }
+}

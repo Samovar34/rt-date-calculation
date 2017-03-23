@@ -1,0 +1,25 @@
+{
+  "name": "rt-date-calculation",
+  "description": "rt date calculation",
+  "main": "gulpfile.js",
+  "authors": [
+    "unscript"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "rt",
+    "date",
+    "calculation"
+  ],
+  "homepage": "https://github.com/unscript/rt-date-calculation",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.6"
+  }
+}
