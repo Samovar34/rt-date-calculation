@@ -365,13 +365,33 @@ output {
 [hidden] {
   display: none !important; }
 
-table {
+.d-picker {
   background-color: rgba(0, 0, 0, 0.85);
-  color: #fff; }
+  color: #fff;
+  max-width: 350px; }
+  .d-picker .top {
+    line-height: 2.5rem; }
+    .d-picker .top .arrow {
+      padding: 0 15px; }
+      .d-picker .top .arrow:hover {
+        background-color: #111;
+        cursor: pointer; }
+    .d-picker .top .left {
+      float: left; }
+    .d-picker .top .right {
+      float: right; }
+    .d-picker .top .date {
+      text-align: center; }
+      .d-picker .top .date:after {
+        clear: both; }
+
+table {
+  width: 100%; }
 
 td, th {
   padding: 10px;
-  text-align: center; }
+  text-align: center;
+  width: 14.2857%; }
 
 .hover:hover {
   background-color: #111;

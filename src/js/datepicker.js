@@ -1,12 +1,14 @@
 var RT = RT || {};
 
 RT.datePicker = (function () {
-    var container = null;
+    var container = null, // контейнер таблицы с датами
+        dateElem = null, // где будет отражаться месяц и год
+        rootElem = null; // корневой элемент
 
     // Дата установленная пользователем
     var curDate = null;
 
-    var Months = {
+    var MONTHS = {
         0: "Январь",
         1: "Февраль",
         2: "Март",
@@ -26,23 +28,50 @@ RT.datePicker = (function () {
     // [Public] Если элемент не определен в разметке
     // то создадим его и вставим в body
     function init() {
-        container = RT.core.getElem("date-picker");
+        rootElem = RT.core.getElem("date-picker");
+        dateElem = RT.core.getElem("dp-date");
+        container = RT.core.getElem("dp-table");
+
 
         if (!container) {
-            container = RT.core.createElem("div", "date-picker", ["app", "date"]);
-            RT.core.appendToBody(container);
+            console.warn("Не верная разметка под Date-picker");
+            return;
         }
 
-        container.onclick = function (e) {
+        rootElem.onclick = function (e) {
             console.log("CLICK");
+            var action = e.target.dataset["action"];
+
+            console.log(action);
+
+            if (action === "up") {
+                curDate.setMonth(curDate.getMonth() + 1);
+                create();
+                printCurDate();
+            } else if (action === "down") {
+                curDate.setMonth(curDate.getMonth() - 1);
+                create();
+                printCurDate();
+            } else if (action === "set" ){
+                if (e.target.dataset.day) {
+                    console.log(new Date(curDate.getFullYear(), curDate.getMonth(), parseInt(e.target.dataset.day)));
+                }
+            } else {
+
+            }
+            return false;
+        }
+
+        // отменить выделение символов при частом нажатии
+        rootElem.onmousedown = function (e) {
+            e.preventDefault();
         }
 
         // установить дату
-        var d = new Date();
-        curDate = {
-            m: d.getMonth(),
-            y: d.getFullYear(),
-        }
+        curDate = new Date();
+        
+        printCurDate();
+        
     }
 
     // [Public] создать календарь 
@@ -53,7 +82,7 @@ RT.datePicker = (function () {
         }
 
         var now = new Date; // текущая дата
-        var d = new Date(curDate.y, curDate.m); // дата установленная пользователем
+        var d = new Date(curDate.getFullYear(), curDate.getMonth()); // дата установленная пользователем
 
         var table = "<table><tr><th>пн</th><th>вт</th><th>ср</th><th>чт</th><th>пт</th><th>сб</th><th>вс</th></tr><tr>";
         
@@ -63,12 +92,12 @@ RT.datePicker = (function () {
         }
 
         // пока текущий месяца
-        while (d.getMonth() == curDate.m) {
-            // если текущий день, то выделить
-            if (d.getDate() == now.getDate()) {
-                table += "<td class=\"hover active\"><b>" + d.getDate() + "</b></td>";
+        while (d.getMonth() == curDate.getMonth()) {
+            // если текущий день и месяц равно целевой дате, то выделить
+            if (d.getDate() == now.getDate() && d.getMonth() == now.getMonth()) {
+                table += "<td class=\"hover active\" data-action=\"set\" data-day=\"" + d.getDate() + "\">" + d.getDate() + "</td>";
             } else {
-                table += "<td class=\"hover\" data-day=\"" + d.getDate() + "\">" + d.getDate() + "</td>";
+                table += "<td class=\"hover\" data-action=\"set\" data-day=\"" + d.getDate() + "\">" + d.getDate() + "</td>";
             }
             
             // если последний день недели (вс) - перевод строки
@@ -93,6 +122,11 @@ RT.datePicker = (function () {
             day = 7;
         }
         return day - 1;
+    }
+
+    // [Private] выводит текущий месяц и год в строку текущей даты
+    function printCurDate() {
+        dateElem.innerHTML = MONTHS[curDate.getMonth()] + " " + curDate.getFullYear();
     }
     
     return {
