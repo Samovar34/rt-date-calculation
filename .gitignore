@@ -38,3 +38,6 @@ jspm_packages
 
 #bower
 bower_components
+
+#build
+build
