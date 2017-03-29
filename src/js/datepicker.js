@@ -54,7 +54,7 @@ RT.datePicker = (function () {
                 printCurDate();
             } else if (action === "set" ){
                 if (e.target.dataset.day) {
-                    console.log(new Date(curDate.getFullYear(), curDate.getMonth(), parseInt(e.target.dataset.day)));
+                    alert(new Date(curDate.getFullYear(), curDate.getMonth(), parseInt(e.target.dataset.day)));
                 }
             } else {
 
@@ -63,12 +63,18 @@ RT.datePicker = (function () {
         }
 
         // отменить выделение символов при частом нажатии
-        rootElem.onmousedown = function (e) {
-            e.preventDefault();
-        }
+        // rootElem.onmousedown = function (e) {
+        //     e.preventDefault();
+        // }
+
+
 
         // установить дату
-        curDate = new Date();
+        // устанавливаем число месяца 1, потому что иногда возникают баги с перехода с марта на фераль
+        // при числах больше 28
+        var d = new Date();
+        curDate = new Date(d.getFullYear(), d.getMonth(), 1)
+        console.log("на старте", curDate.getMonth());
         
         printCurDate();
         

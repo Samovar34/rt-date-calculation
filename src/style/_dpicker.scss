@@ -1,13 +1,23 @@
 .d-picker {
     background-color: rgba(0, 0, 0, .85);
     color: #fff;
-    max-width: 350px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
 
     .top {
-        line-height: 2.5rem;
+        line-height: 3rem;
 
-        .arrow {
-            padding: 0 15px;
+        .arrow button {
+            padding: 0 20px;
+            background-color: transparent;
+            color: #fff;
+            border: none;
+
+            &:focus {
+                outline: none;
+            }
 
             &:hover {
                 background-color: #111;
@@ -37,7 +47,7 @@ table {
 }
 
 td, th {
-    padding: 10px;
+    line-height: 3rem;
     text-align: center;
     width: 14.2857%;
 }

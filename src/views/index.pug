@@ -8,11 +8,17 @@ html(lang="ru")
         link(rel="shortcut icon" type="image/png" href="/img/icon_32.png" sizes="32x32")
         link(rel="shortcut icon" type="image/png" href="/img/icon_16.png" sizes="16x16")
     body
-        block nav
-        block header
-        block content
-        block footer
-        include ./dpicker.pug
+        .container
+            div
+                .row
+                    span#dt
+                .row
+                    input(type="number")
+                    span :
+                    input(type="number")
+            include ./dpicker.pug
+        div.hidden
+            input#input(type="number")
         block scripts
             script(src="/js/core.js")
             script(src="/js/datepicker.js")
