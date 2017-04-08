@@ -38,6 +38,8 @@ RT.datePicker = (function () {
             return;
         }
 
+        
+
         rootElem.onclick = function (e) {
             console.log("CLICK");
             var action = e.target.dataset["action"];

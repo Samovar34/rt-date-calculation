@@ -20,6 +20,40 @@
     
 }
 
+.col {
+    float: left;
+}
+
+.col-a {
+    width: 33.3333%;
+}
+
+.col-b {
+    width: 50%;
+}
+
+.row:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.center {
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+input {
+    width: 60%;
+}
+
 @media (min-width: 640px) {
     .container {
         width: 600px;

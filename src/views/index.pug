@@ -10,16 +10,53 @@ html(lang="ru")
     body
         .container
             div
+                .row 
+                    h2 Дата начала
+                .row.center
+                    .col.col-a
+                        span День
+                    .col.col-a
+                        span Месяц
+                    .col.col-a
+                        span Год
+                .row.center
+                    .col.col-a
+                        input(id="start-day" type="number")
+                    .col.col-a
+                        input(id="start-month" type="number")
+                    .col.col-a
+                        input(id="start-year" type="number")
                 .row
-                    span#dt
+                    h2 Время начала
+                .row.center
+                    .col.col-b
+                        span Часы
+                    .col.col-b
+                        span Минуты
+                .row.center
+                    .col.col-b
+                        input(id="start-hours" type="number")
+                    .col.col-b
+                        input(id="start-min" type="number")
                 .row
-                    input(type="number")
-                    span :
-                    input(type="number")
+                    h2 Контрольное время
+                .row.center
+                    .col.col-b
+                        span Часы
+                    .col.col-b
+                        span Минуты
+                .row.center
+                    .col.col-b
+                        input(id="target-hours" type="number")
+                    .col.col-b
+                        input(id="target-min" type="text")
+            
+            div
+                .row.center
+                    button Go
             include ./dpicker.pug
-        div.hidden
-            input#input(type="number")
         block scripts
             script(src="/js/core.js")
+            script(src="/js/input.js")
             script(src="/js/datepicker.js")
             script(src="/js/app.js")
