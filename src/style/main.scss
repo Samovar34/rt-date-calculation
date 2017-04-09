@@ -5,6 +5,11 @@
 @import "./dpicker";
 @import "./input";
 
+body {
+    background-color: #eee;
+    font-family: Verdana, Tahoma, sans-serif;
+}
+
 .hidden {
     width: 1px;
     height: 1px;
@@ -52,8 +57,8 @@
 }
 
 
-@media (min-width: 640px) {
+@media (min-width: 430px) {
     .container {
-        width: 600px;
+        width: 420px;
     }
 }
