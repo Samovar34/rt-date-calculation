@@ -9,52 +9,50 @@ html(lang="ru")
         link(rel="shortcut icon" type="image/png" href="/img/icon_16.png" sizes="16x16")
     body
         .container
-            div
-                .row 
+            div.input
+                .row
                     h2 Дата начала
-                .row.center
-                    .col.col-a
-                        span День
-                    .col.col-a
-                        span Месяц
-                    .col.col-a
-                        span Год
-                .row.center
-                    .col.col-a
-                        input(id="start-day" type="number")
-                    .col.col-a
-                        input(id="start-month" type="number")
-                    .col.col-a
-                        input(id="start-year" type="number")
-                .row
-                    h2 Время начала
-                .row.center
-                    .col.col-b
-                        span Часы
-                    .col.col-b
-                        span Минуты
-                .row.center
-                    .col.col-b
-                        input(id="start-hours" type="number")
-                    .col.col-b
-                        input(id="start-min" type="number")
-                .row
-                    h2 Контрольное время
-                .row.center
-                    .col.col-b
-                        span Часы
-                    .col.col-b
-                        span Минуты
-                .row.center
-                    .col.col-b
-                        input(id="target-hours" type="number")
-                    .col.col-b
-                        input(id="target-min" type="text")
-            
+                .row 
+                    form(action="#" method="post")
+                        div.form-line.border
+                            table
+                                tbody
+                                    tr
+                                        td
+                                            input(type="text" class="user-input" id="start-day" name="start-day" maxLength="2" autocomplete="off")
+                                        td /
+                                        td
+                                            input(type="text" class="user-input" id="start-month" name="start-month" maxLength="2" autocomplete="off")  
+                                        td /
+                                        td
+                                            input(type="text" class="user-input year" id="start-year" name="start-year" maxLength="4" autocomplete="off") 
+                                        td
+                                            a(href="javascript:void(0)") go
+                        div.form-line.border
+                            table
+                                tbody
+                                    tr
+                                        td
+                                            input(type="text" class="user-input" id="start-hours" name="start-hours" maxLength="3" autocomplete="off")
+                                        td :
+                                        td
+                                            input(type="text" class="user-input" id="start-min" name="start-min" maxLength="2" autocomplete="off")  
+
+                        div.form-line
+                            h2 Контрольное время
+                        div.form-line
+                        table
+                            tbody
+                                tr
+                                    td
+                                        input(type="text" class="user-input" id="start-hours" name="start-hours" maxLength="3" autocomplete="off" value="67")
+                                    td :
+                                    td
+                                        input(type="text" class="user-input" id="start-min" name="start-min" maxLength="2" autocomplete="off" value="00")
             div
                 .row.center
                     button Go
-            include ./dpicker.pug
+            //include ./dpicker.pug
         block scripts
             script(src="/js/core.js")
             script(src="/js/input.js")

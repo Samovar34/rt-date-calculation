@@ -1,8 +1,9 @@
 // css reset
 @import "../../bower_components/bootstrap/scss/bootstrap-reboot";
 
-// date picker
+// modules
 @import "./dpicker";
+@import "./input";
 
 .hidden {
     width: 1px;
@@ -50,9 +51,6 @@
     text-align: right;
 }
 
-input {
-    width: 60%;
-}
 
 @media (min-width: 640px) {
     .container {

@@ -1,0 +1,32 @@
+.input {
+    table {
+        margin: 0 auto;
+    }
+
+    .form-line {
+        margin-bottom: 15px;
+
+        &.border {
+
+        }
+    }
+
+    tr {
+        line-height: 2rem;
+    }
+
+    td {
+        padding: 5px;
+    }
+
+    .user-input {
+        border: none;
+        outline: none;
+        width: 20px;
+        text-align: right;
+
+        &.year {
+            width: 40px;
+        }
+    }
+}
