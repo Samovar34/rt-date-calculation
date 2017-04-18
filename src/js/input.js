@@ -5,6 +5,9 @@ RT.input = (function () {
 
     var inputs = null;
 
+    var showDpElem = null;
+
+
     function init() {
         var date = new Date;
         inputForm = RT.core.getElem("input-form");
@@ -16,6 +19,8 @@ RT.input = (function () {
         startMin = RT.core.getElem("start-min");
         targetHours = RT.core.getElem("target-hours");
         targetMin = RT.core.getElem("target-min");
+
+        showDpElem = RT.core.getElem("show-dp");
 
         startDay.value = date.getDate();
         startMonth.value = date.getMonth() + 1;
@@ -30,13 +35,15 @@ RT.input = (function () {
 
         inputForm.onsubmit = function (e) {
             e.preventDefault();
-        }
+        };
 
         // назначить обработчики
         for (var i = 0; i < inputs.length; i++) {
             inputs[i].oninput = checkInput;
             inputs[i].onchange = validate;
         }
+
+        showDpElem.onclick = emitEvent;
 
         toReadable();
     }
@@ -55,12 +62,25 @@ RT.input = (function () {
 
     }
 
-
+    // check user input
+    // if input not a number then that will be removed
     function checkInput() {
         this.value = this.value.replace(/\D/gim, "");
-        console.log("check");
     }
 
+    // this = Element
+    function emitEvent() {
+        var eventName = this.getAttribute("data-event");
+
+        if (eventName) {
+            console.log("event " + eventName + " was emmited");
+        }
+    }
+
+    // validate input according data attributes
+    // if value < min => value = min
+    // if value > max => value = max
+    // if value == NaN => valuer = min
     function validate() {
         var min = parseInt(this.getAttribute("data-min"));
         var max = parseInt(this.getAttribute("data-max"));
@@ -73,11 +93,14 @@ RT.input = (function () {
         _toReadable(this);
     }
 
+    // if value < 10 then add 0
+    // value = 9 => return 09
     function _toReadable (input) {
         var min = parseInt(input.getAttribute("data-auto"));
+        var curValue = parseInt(input.value);
 
-        if (input.value < 10) {
-            input.value = "0" + input.value;
+        if (curValue < 10) {
+            input.value = "0" + curValue;
         }
     }
 

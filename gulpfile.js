@@ -30,7 +30,7 @@ let path = {
     },
 
     del: "build/**/*"
-}
+};
 
 // TASKS
 
