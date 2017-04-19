@@ -15,12 +15,8 @@ $input-4: 50px;
         }
 
         &.last {
-            margin-bottom: 35px;
+            margin-bottom: 50px;
         }
-    }
-
-    .submit-btn {
-        padding: 3px 25px;
     }
 
     .input-block {
@@ -56,6 +52,10 @@ $input-4: 50px;
         color: #555;
         font-family: Verdana, Tahoma, sans-serif;
         padding: 0;
+
+        &::placeholder {
+            color: #ccc;
+        }
 
         &.year {
             width: $input-4;

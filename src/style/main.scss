@@ -4,6 +4,7 @@
 // modules
 @import "./dpicker";
 @import "./input";
+@import "./result";
 
 body {
     background-color: #eee;
@@ -54,6 +55,32 @@ body {
 
 .right {
     text-align: right;
+}
+
+// basic button
+.btn {
+    border: 2px solid black;
+    background-color: #fff;
+    padding: 3px 25px;
+    outline: none;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:active {
+        background-color: #000;
+        color: #fff
+    }
+}
+
+// basic
+.ta-center {
+    text-align: center;
+}
+
+.mb-50 {
+    margin-bottom: 50px;
 }
 
 

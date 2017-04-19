@@ -70,5 +70,18 @@
     .bottom {
         padding: 10px 0;
         text-align: center;
+
+        .hide {
+            color: #fff;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+
+            &:visited {
+                color: #fff;
+            }
+        }
     }
 }

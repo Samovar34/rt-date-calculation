@@ -35,22 +35,34 @@ RT.input = (function () {
 
         inputForm.onsubmit = function (e) {
             e.preventDefault();
+            RT.events.emit("show:result", [getDate()]);
         };
 
         // назначить обработчики
         for (var i = 0; i < inputs.length; i++) {
             inputs[i].oninput = checkInput;
             inputs[i].onchange = validate;
+            inputs[i].onfocus = doOnFocus;
+            inputs[i].onblur = doOnBlur;
         }
 
         showDpElem.onclick = emitEvent;
 
+        RT.events.add("picked", function (date) {
+            setDate(date);
+            toReadable();
+        });
+
         toReadable();
     }
 
-    function setDate() {
-
+    function setDate(date) {
+        startDay.value = date.getDate();
+        startMonth.value = date.getMonth() + 1;
+        startYear.value = date.getFullYear();
     }
+
+    function setTime() {}
 
     function toReadable() {
         for (var i = 0; i < inputs.length; i++) {
@@ -59,7 +71,19 @@ RT.input = (function () {
     }
 
     function getDate() {
-
+        return {
+            startDate: new Date(
+                parseInt(startYear.value),
+                parseInt(startMonth.value) - 1,
+                parseInt(startDay.value),
+                parseInt(startHours.value),
+                parseInt(startMin.value)
+            ),
+            targetTime: {
+                hours: parseInt(targetHours.value),
+                minutes: parseInt(targetMin.value),
+            }
+        }
     }
 
     // check user input
@@ -73,7 +97,20 @@ RT.input = (function () {
         var eventName = this.getAttribute("data-event");
 
         if (eventName) {
-            console.log("event " + eventName + " was emmited");
+            RT.events.emit(eventName, null);
+        }
+    }
+
+    // this = input Element
+    function doOnFocus() {
+        this.setAttribute("placeholder", this.value);
+        this.value = "";
+    }
+
+    // this = input Element
+    function doOnBlur() {
+        if (this.value.trim() === "") {
+            this.value = this.getAttribute("placeholder");
         }
     }
 
@@ -96,7 +133,6 @@ RT.input = (function () {
     // if value < 10 then add 0
     // value = 9 => return 09
     function _toReadable (input) {
-        var min = parseInt(input.getAttribute("data-auto"));
         var curValue = parseInt(input.value);
 
         if (curValue < 10) {

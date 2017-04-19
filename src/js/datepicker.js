@@ -3,6 +3,7 @@ var RT = RT || {};
 RT.datePicker = (function () {
     var container = null, // контейнер таблицы с датами
         dateElem = null, // где будет отражаться месяц и год
+        hideLink = null, // кнопка скрытия
         rootElem = null; // корневой элемент
 
     // Дата установленная пользователем
@@ -30,6 +31,7 @@ RT.datePicker = (function () {
     function init() {
         rootElem = RT.core.getElem("date-picker");
         dateElem = RT.core.getElem("dp-date");
+        hideLink = RT.core.getElem("dphide");
         container = RT.core.getElem("dp-table");
 
 
@@ -38,7 +40,10 @@ RT.datePicker = (function () {
             return;
         }
 
-        
+        hideLink.onclick = function(e) {
+            //e.preventDefault();
+            hide();
+        };
 
         rootElem.onclick = function (e) {
             console.log("CLICK");
@@ -55,14 +60,19 @@ RT.datePicker = (function () {
                 create();
                 printCurDate();
             } else if (action === "set" ){
-                if (e.target.dataset.day) {
-                    alert(new Date(curDate.getFullYear(), curDate.getMonth(), parseInt(e.target.dataset.day)));
+                if (e.target.dataset["day"]) {
+                    RT.events.emit("picked", [
+                        new Date(curDate.getFullYear(),
+                            curDate.getMonth(),
+                            parseInt(e.target.dataset["day"]))
+                    ]);
+                    hide();
                 }
             } else {
 
             }
             return false;
-        }
+        };
 
         // отменить выделение символов при частом нажатии
         // rootElem.onmousedown = function (e) {
@@ -79,6 +89,8 @@ RT.datePicker = (function () {
         console.log("на старте", curDate.getMonth());
         
         printCurDate();
+
+        RT.events.add("show:dpicker", show);
         
     }
 
@@ -100,16 +112,16 @@ RT.datePicker = (function () {
         }
 
         // пока текущий месяца
-        while (d.getMonth() == curDate.getMonth()) {
+        while (d.getMonth() === curDate.getMonth()) {
             // если текущий день и месяц равно целевой дате, то выделить
-            if (d.getDate() == now.getDate() && d.getMonth() == now.getMonth()) {
+            if (d.getDate() === now.getDate() && d.getMonth() === now.getMonth()) {
                 table += "<td class=\"hover active\" data-action=\"set\" data-day=\"" + d.getDate() + "\">" + d.getDate() + "</td>";
             } else {
                 table += "<td class=\"hover\" data-action=\"set\" data-day=\"" + d.getDate() + "\">" + d.getDate() + "</td>";
             }
             
             // если последний день недели (вс) - перевод строки
-            if (getDay(d) == 6) {
+            if (getDay(d) === 6) {
                 table += "</tr><tr>";
             }
 
@@ -126,7 +138,7 @@ RT.datePicker = (function () {
     // 0-пн 6-вс
     function getDay(date) {
         var day = date.getDay();
-        if (day == 0) { // если воскресенье
+        if (day === 0) { // если воскресенье
             day = 7;
         }
         return day - 1;
@@ -135,6 +147,14 @@ RT.datePicker = (function () {
     // [Private] выводит текущий месяц и год в строку текущей даты
     function printCurDate() {
         dateElem.innerHTML = MONTHS[curDate.getMonth()] + " " + curDate.getFullYear();
+    }
+
+    function show() {
+        rootElem.style.display = "block";
+    }
+
+    function hide() {
+        rootElem.style.display = "none";
     }
     
     return {
