@@ -10,16 +10,16 @@ RT.datePicker = (function () {
     var curDate = null;
 
     var MONTHS = {
-        0: "Январь",
-        1: "Февраль",
-        2: "Март",
-        3: "Апрель",
-        4: "Май",
-        5: "Июнь",
-        6: "Июль",
-        7: "Август",
-        8: "Сентябрь",
-        9: "Октябрь",
+        0:  "Январь",
+        1:  "Февраль",
+        2:  "Март",
+        3:  "Апрель",
+        4:  "Май",
+        5:  "Июнь",
+        6:  "Июль",
+        7:  "Август",
+        8:  "Сентябрь",
+        9:  "Октябрь",
         10: "Ноябрь",
         11: "Декабрь",
     };
@@ -82,11 +82,10 @@ RT.datePicker = (function () {
 
 
         // установить дату
-        // устанавливаем число месяца 1, потому что иногда возникают баги с перехода с марта на фераль
+        // устанавливаем число месяца 1, потому что иногда возникают баги с перехода с марта на февраль
         // при числах больше 28
         var d = new Date();
         curDate = new Date(d.getFullYear(), d.getMonth(), 1)
-        console.log("на старте", curDate.getMonth());
         
         printCurDate();
 
@@ -131,6 +130,7 @@ RT.datePicker = (function () {
 
         table += "</tr></table>"; // закрыть таблицу
 
+        // show table
         container.innerHTML = table;
     }
 
@@ -149,19 +149,18 @@ RT.datePicker = (function () {
         dateElem.innerHTML = MONTHS[curDate.getMonth()] + " " + curDate.getFullYear();
     }
 
+    // [Private] show module
     function show() {
         rootElem.style.display = "block";
     }
 
+    // [Privete] hide module
     function hide() {
         rootElem.style.display = "none";
     }
     
     return {
         init: init,
-        create: create,
-        setDate: null,
-        show: null,
-        hide: null
+        create: create
     }
 })();
