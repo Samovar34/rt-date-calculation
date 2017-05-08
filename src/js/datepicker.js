@@ -9,6 +9,9 @@ RT.datePicker = (function () {
     // Дата установленная пользователем
     var curDate = null;
 
+    // TODO Дата, которую выбрал пользователь
+    var userDate = null;
+
     var MONTHS = {
         0:  "Январь",
         1:  "Февраль",
@@ -61,12 +64,12 @@ RT.datePicker = (function () {
                 printCurDate();
             } else if (action === "set" ){
                 if (e.target.dataset["day"]) {
-                    RT.events.emit("picked", [
-                        new Date(curDate.getFullYear(),
-                            curDate.getMonth(),
-                            parseInt(e.target.dataset["day"]))
-                    ]);
+                    userDate = new Date(curDate.getFullYear(),
+                        curDate.getMonth(),
+                        parseInt(e.target.dataset["day"]));
+                    RT.events.emit("picked", [userDate]);
                     hide();
+                    create();
                 }
             } else {
 
@@ -89,8 +92,11 @@ RT.datePicker = (function () {
         // установить дату
         // устанавливаем число месяца 1, потому что иногда возникают баги с перехода с марта на февраль
         // при числах больше 28
-        var d = new Date();
-        curDate = new Date(d.getFullYear(), d.getMonth(), 1)
+        var now = new Date();
+        curDate = new Date(now.getFullYear(), now.getMonth(), 1);
+
+        // TODO при инициализации, дата, выбранная пользователем, равно текущей дате
+        userDate = now;
         
         printCurDate();
 
@@ -106,31 +112,39 @@ RT.datePicker = (function () {
         }
 
         var now = new Date; // текущая дата
-        var d = new Date(curDate.getFullYear(), curDate.getMonth()); // дата установленная пользователем
+        var tempDate = new Date(curDate.getFullYear(), curDate.getMonth()); // дата, необходимая для заполнения календаря
 
         var table = "<table><tr><th>пн</th><th>вт</th><th>ср</th><th>чт</th><th>пт</th><th>сб</th><th>вс</th></tr><tr>";
         
         // заполняем первый ряд от пн и до дня с которого начинается месяца
-        for (var i = 0; i < getDay(d); i++) {
+        for (var i = 0; i < getDay(tempDate); i++) {
             table += "<td></td>";
         }
 
         // пока текущий месяца
-        while (d.getMonth() === curDate.getMonth()) {
+        while (tempDate.getMonth() === curDate.getMonth()) {
             // если текущий день и месяц равно целевой дате, то выделить
-            if (d.getDate() === now.getDate() && d.getMonth() === now.getMonth()) {
-                table += "<td class=\"hover active\" data-action=\"set\" data-day=\"" + d.getDate() + "\">" + d.getDate() + "</td>";
+            if (tempDate.getDate() === now.getDate() && tempDate.getMonth() === now.getMonth()) {
+                // если текущий день равен дню, выбранным пользователям то выделить жирным
+                if (tempDate.getDate() === userDate.getDate() && tempDate.getMonth() === userDate.getMonth()) {
+                    table += createCell(tempDate, "now-user");
+                } else {
+                    table += createCell(tempDate, "now");
+                }
+            // выделить выбранный пользователем день, жирным шрифтом
+            } else if (tempDate.getDate() === userDate.getDate() && tempDate.getMonth() === userDate.getMonth()) {
+                table += createCell(tempDate, "user");
             } else {
-                table += "<td class=\"hover\" data-action=\"set\" data-day=\"" + d.getDate() + "\">" + d.getDate() + "</td>";
+                table += createCell(tempDate);
             }
             
             // если последний день недели (вс) - перевод строки
-            if (getDay(d) === 6) {
+            if (getDay(tempDate) === 6) {
                 table += "</tr><tr>";
             }
 
             // прибавим день
-            d.setDate(d.getDate() + 1);
+            tempDate.setDate(tempDate.getDate() + 1);
         }
 
         table += "</tr></table>"; // закрыть таблицу
@@ -147,6 +161,26 @@ RT.datePicker = (function () {
             day = 7;
         }
         return day - 1;
+    }
+
+    // [Private] создает ячейку в календаре с датой
+    function createCell (tempDate ,val) {
+        switch (val) {
+            // текущий день
+            case "now":
+                return "<td class=\"hover active\" data-action=\"set\" data-day=\"" + tempDate.getDate() + "\">" + tempDate.getDate() + "</td>";
+            // текущий день, который совпадает с выбранным
+            case "now-user": {
+                return "<td style=\"font-weight: bold;\" class=\"hover active\" data-action=\"set\" data-day=\"" + tempDate.getDate() + "\">" + tempDate.getDate() + "</td>";
+            }
+            // день, выбранный пользователем
+            case "user": {
+                return "<td style=\"font-weight: bold;\" class=\"hover\" data-action=\"set\" data-day=\"" + tempDate.getDate() + "\">" + tempDate.getDate() + "</td>";
+            }
+            // обычный день
+            default:
+                return "<td class=\"hover\" data-action=\"set\" data-day=\"" + tempDate.getDate() + "\">" + tempDate.getDate() + "</td>";
+        }
     }
 
     // [Private] выводит текущий месяц и год в строку текущей даты

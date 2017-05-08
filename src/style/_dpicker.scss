@@ -70,18 +70,5 @@
     .bottom {
         padding: 10px 0;
         text-align: center;
-
-        .hide {
-            color: #333;
-            text-decoration: none;
-
-            &:hover {
-                text-decoration: underline;
-            }
-
-            &:visited {
-                color: #fff;
-            }
-        }
     }
 }

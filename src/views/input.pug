@@ -2,7 +2,7 @@ div.input
     form(action="#" method="post" id="input-form")
         div.block
             div.block-header
-                h2 Дата начала
+                h3 Дата начала
             div.block-body
                 div.block-row
                     table
@@ -19,7 +19,7 @@ div.input
                                 td
                                     a#show-dp(href="javascript:void(0)" data-event="show:dpicker")
                                         img(alt="календарь" src="/img/calendar.png")
-                div.block-row
+                div.block-row.block-row--last
                     table
                         tbody
                             tr.input-block.input-border
@@ -30,7 +30,7 @@ div.input
                                     input(type="text" class="user-input user-input--right" id="start-min" name="start-min" maxLength="2" autocomplete="off" data-min="0" data-max="59")
         div.block
             div.block-header
-                h2 Контрольное время
+                h3 Контрольное время
             div.block-body
                 div.block-row
                     table
@@ -41,6 +41,5 @@ div.input
                                 td.input-delimiter :
                                 td
                                     input(type="text" class="user-input user-input--right" id="target-min" name="target-min" maxLength="2" autocomplete="off" data-min="0" data-max="59")
-                div.block-row.block-row--right
+                div.block-row.block-row--last.block-row--center
                     input(class="submit-btn btn" type="submit" value="расчет")
-                    input(class="submit-btn btn" type="button" value="сбросить")
