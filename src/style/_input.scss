@@ -28,9 +28,9 @@ $input-4: 50px;
     }
 
     .input-border {
-        border: 1px solid #ccc;
+        border-bottom: 2px solid #3498db;
         display: block;
-        border-radius: 5px;
+        border-radius: 0px;
     }
 
     a {
@@ -53,8 +53,16 @@ $input-4: 50px;
         font-family: Verdana, Tahoma, sans-serif;
         padding: 0;
 
+        &.user-input--right {
+            margin-right: 10px;
+        }
+
         &::placeholder {
             color: #ccc;
+        }
+
+        &:disabled {
+            background-color: transparent;
         }
 
         &.year {

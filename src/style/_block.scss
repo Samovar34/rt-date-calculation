@@ -1,0 +1,25 @@
+.block {
+  background-color: #fff;
+  margin-bottom: 10px;
+
+  .block-header {
+    padding: 0 5px;
+
+    h2 {
+      color: #333;
+    }
+  }
+
+  .block-body {
+    padding-bottom: 10px;
+  }
+
+  .block-row {
+    padding: 0 15px;
+    margin-bottom: 15px;
+  }
+
+  .block-row--right {
+    text-align: right;
+  }
+}

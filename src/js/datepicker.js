@@ -45,8 +45,8 @@ RT.datePicker = (function () {
             hide();
         };
 
+        // TODO в WP10 баг с выделение текста после скрытия датапикера. После скрыть текст выделяется
         rootElem.onclick = function (e) {
-            console.log("CLICK");
             var action = e.target.dataset["action"];
 
             console.log(action);
@@ -71,6 +71,7 @@ RT.datePicker = (function () {
             } else {
 
             }
+            e.preventDefault();
             return false;
         };
 
@@ -78,6 +79,10 @@ RT.datePicker = (function () {
         // rootElem.onmousedown = function (e) {
         //     e.preventDefault();
         // }
+
+        // rootElem.addEventListener("touchend", function (e) {
+        //     e.preventDefault()();
+        // });
 
 
 

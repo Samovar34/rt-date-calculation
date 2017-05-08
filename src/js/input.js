@@ -8,6 +8,7 @@ RT.input = (function () {
     var showDpElem = null;
 
 
+    // [Public]
     function init() {
         var date = new Date;
         inputForm = RT.core.getElem("input-form");
@@ -56,20 +57,21 @@ RT.input = (function () {
         toReadable();
     }
 
+    // [Private]
     function setDate(date) {
         startDay.value = date.getDate();
         startMonth.value = date.getMonth() + 1;
         startYear.value = date.getFullYear();
     }
 
-    function setTime() {}
-
+    // [Private]
     function toReadable() {
         for (var i = 0; i < inputs.length; i++) {
             _toReadable(inputs[i]);
         }
     }
 
+    // [Private] get user date
     function getDate() {
         return {
             startDate: new Date(
@@ -86,13 +88,13 @@ RT.input = (function () {
         }
     }
 
-    // check user input
+    // [Private] check user input
     // if input not a number then that will be removed
     function checkInput() {
         this.value = this.value.replace(/\D/gim, "");
     }
 
-    // this = Element
+    // [Private] this = Element
     function emitEvent() {
         var eventName = this.getAttribute("data-event");
 
@@ -101,20 +103,20 @@ RT.input = (function () {
         }
     }
 
-    // this = input Element
+    // [Private] this = input Element
     function doOnFocus() {
         this.setAttribute("placeholder", this.value);
         this.value = "";
     }
 
-    // this = input Element
+    // [Private] this = input Element
     function doOnBlur() {
         if (this.value.trim() === "") {
             this.value = this.getAttribute("placeholder");
         }
     }
 
-    // validate input according data attributes
+    // [Private] validate input according data attributes
     // if value < min => value = min
     // if value > max => value = max
     // if value == NaN => valuer = min
@@ -130,6 +132,7 @@ RT.input = (function () {
         _toReadable(this);
     }
 
+    // [Private]
     // if value < 10 then add 0
     // value = 9 => return 09
     function _toReadable (input) {
