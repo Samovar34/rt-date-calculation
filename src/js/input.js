@@ -23,31 +23,31 @@ RT.input = (function () {
 
         showDpElem = RT.core.getElem("show-dp");
 
-        startDay.value = date.getDate();
-        startMonth.value = date.getMonth() + 1;
-        startYear.value = date.getFullYear();
-        startHours.value = date.getHours();
-        startMin.value = date.getMinutes();
-
-        targetHours.value = 67;
-        targetMin.value = 0;
+        // set initial value
+        startDay.value(date.getDate());
+        startMonth.value(date.getMonth() + 1);
+        startYear.value (date.getFullYear());
+        startHours.value(date.getHours());
+        startMin.value(date.getMinutes());
+        targetHours.value(67);
+        targetMin.value(0);
 
         inputs = [startDay, startMonth, startYear, startHours, startMin, targetHours, targetMin];
 
-        inputForm.onsubmit = function (e) {
+        inputForm.on("submit", function (e) {
             e.preventDefault();
             RT.events.emit("show:result", [getDate()]);
-        };
+        });
 
         // назначить обработчики
         for (var i = 0; i < inputs.length; i++) {
-            inputs[i].oninput = checkInput;
-            inputs[i].onchange = validate;
-            inputs[i].onfocus = doOnFocus;
-            inputs[i].onblur = doOnBlur;
+            inputs[i].on("input", checkInput);
+            inputs[i].on("change", validate);
+            inputs[i].on("focus", doOnFocus);
+            inputs[i].on("blur", doOnBlur);
         }
 
-        showDpElem.onclick = emitEvent;
+        showDpElem.on("click", emitEvent);
 
         RT.events.add("picked", function (date) {
             setDate(date);
@@ -59,15 +59,15 @@ RT.input = (function () {
 
     // [Private]
     function setDate(date) {
-        startDay.value = date.getDate();
-        startMonth.value = date.getMonth() + 1;
-        startYear.value = date.getFullYear();
+        startDay.value(date.getDate());
+        startMonth.value(date.getMonth() + 1);
+        startYear.value(date.getFullYear());
     }
 
     // [Private]
     function toReadable() {
         for (var i = 0; i < inputs.length; i++) {
-            _toReadable(inputs[i]);
+            _toReadable(inputs[i].get());
         }
     }
 
@@ -75,15 +75,15 @@ RT.input = (function () {
     function getDate() {
         return {
             startDate: new Date(
-                parseInt(startYear.value),
-                parseInt(startMonth.value) - 1,
-                parseInt(startDay.value),
-                parseInt(startHours.value),
-                parseInt(startMin.value)
+                parseInt(startYear.value()),
+                parseInt(startMonth.value()) - 1,
+                parseInt(startDay.value()),
+                parseInt(startHours.value()),
+                parseInt(startMin.value())
             ),
             targetTime: {
-                hours: parseInt(targetHours.value),
-                minutes: parseInt(targetMin.value),
+                hours: parseInt(targetHours.value()),
+                minutes: parseInt(targetMin.value()),
             }
         }
     }
@@ -117,6 +117,7 @@ RT.input = (function () {
     }
 
     // [Private] validate input according data attributes
+    // this = Element
     // if value < min => value = min
     // if value > max => value = max
     // if value == NaN => valuer = min

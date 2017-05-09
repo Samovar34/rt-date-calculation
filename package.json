@@ -1,6 +1,6 @@
 {
   "name": "rt-date-calculation",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "description": "rt date calculation",
   "main": "gulpfile.js",
   "scripts": {

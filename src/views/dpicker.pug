@@ -1,9 +1,11 @@
 .d-picker#date-picker
     .top
         .right.arrow
-            button(data-action="up") >
+            button(class="d-picker-btn" data-action="up")
+                img(alt="right" src="/img/right.png" width="16px" height="16px" data-action="up")
         .right.arrow
-            button(data-action="down") <
+            button(class="d-picker-btn" data-action="down")
+                img(alt="right" src="/img/left.png" width="16px" height="16px" data-action="down")
         .date#dp-date
     .body#dp-table
     .bottom

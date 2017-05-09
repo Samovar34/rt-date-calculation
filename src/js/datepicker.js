@@ -43,16 +43,15 @@ RT.datePicker = (function () {
             return;
         }
 
-        hideLink.onclick = function(e) {
+        hideLink.on("click", function(e) {
             //e.preventDefault();
             hide();
-        };
+        });
 
         // TODO в WP10 баг с выделение текста после скрытия датапикера. После скрыть текст выделяется
-        rootElem.onclick = function (e) {
-            var action = e.target.dataset["action"];
-
-            console.log(action);
+        rootElem.on("click", function (e) {
+            var target = RT.core.wrap(e.target);
+            var action = target.getData("action");
 
             if (action === "up") {
                 curDate.setMonth(curDate.getMonth() + 1);
@@ -63,31 +62,17 @@ RT.datePicker = (function () {
                 create();
                 printCurDate();
             } else if (action === "set" ){
-                if (e.target.dataset["day"]) {
+                if (target.getData("day")) {
                     userDate = new Date(curDate.getFullYear(),
                         curDate.getMonth(),
-                        parseInt(e.target.dataset["day"]));
+                        parseInt(target.getData("day")));
                     RT.events.emit("picked", [userDate]);
                     hide();
                     create();
                 }
-            } else {
-
             }
             e.preventDefault();
-            return false;
-        };
-
-        // отменить выделение символов при частом нажатии
-        // rootElem.onmousedown = function (e) {
-        //     e.preventDefault();
-        // }
-
-        // rootElem.addEventListener("touchend", function (e) {
-        //     e.preventDefault()();
-        // });
-
-
+        });
 
         // установить дату
         // устанавливаем число месяца 1, потому что иногда возникают баги с перехода с марта на февраль
@@ -95,10 +80,10 @@ RT.datePicker = (function () {
         var now = new Date();
         curDate = new Date(now.getFullYear(), now.getMonth(), 1);
 
-        // TODO при инициализации, дата, выбранная пользователем, равно текущей дате
         userDate = now;
         
         printCurDate();
+        create();
 
         RT.events.add("show:dpicker", show);
         
@@ -106,7 +91,7 @@ RT.datePicker = (function () {
 
     // [Public] создать календарь 
     function create() {
-        if (!container) {
+        if (!container.get()) {
             console.warn("Сначало нужно вызвать RT.datePicker.init");
             return;
         }
@@ -150,7 +135,7 @@ RT.datePicker = (function () {
         table += "</tr></table>"; // закрыть таблицу
 
         // show table
-        container.innerHTML = table;
+        container.html(table);
     }
 
     // [Private] возвращает номер дня недели
@@ -185,21 +170,20 @@ RT.datePicker = (function () {
 
     // [Private] выводит текущий месяц и год в строку текущей даты
     function printCurDate() {
-        dateElem.innerHTML = MONTHS[curDate.getMonth()] + " " + curDate.getFullYear();
+        dateElem.html(MONTHS[curDate.getMonth()] + " " + curDate.getFullYear());
     }
 
     // [Private] show module
     function show() {
-        rootElem.style.display = "block";
+        rootElem.show();
     }
 
     // [Privete] hide module
     function hide() {
-        rootElem.style.display = "none";
+        rootElem.hide();
     }
     
     return {
-        init: init,
-        create: create
+        init: init
     }
 })();

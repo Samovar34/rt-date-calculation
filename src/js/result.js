@@ -20,33 +20,33 @@ RT.result = (function () {
 
         RT.events.add("show:result", calculateAndShow);
 
-        hideBtn.onclick = hide;
+        hideBtn.on("click", hide);
     }
 
     function calculateAndShow(result) {
         var targetDate = calculate(result);
-        startDate.innerHTML = formatDate(result.startDate);
-        startTime.innerHTML = formatTime({
+        startDate.html(formatDate(result.startDate));
+        startTime.html(formatTime({
             hours: result.startDate.getHours(),
             minutes: result.startDate.getMinutes()
-        });
-        targetTime.innerHTML = formatTime(result.targetTime);
-        endDate.innerHTML = formatDate(targetDate);
-        endTime.innerHTML = formatTime({
+        }));
+        targetTime.html(formatTime(result.targetTime));
+        endDate.html(formatDate(targetDate));
+        endTime.html(formatTime({
             hours: targetDate.getHours(),
             minutes: targetDate.getMinutes()
-        });
+        }));
 
         show();
 
     }
 
     function show() {
-        rootElem.style.display = "block";
+        rootElem.show();
     }
 
     function hide() {
-        rootElem.style.display = "none";
+        rootElem.hide();
     }
 
     function calculate(data) {

@@ -1,30 +1,14 @@
 .d-picker {
     background-color: #fff;
     color: #333;
-    width: 100%;
     position: absolute;
     top: 0;
-    left: 0;
+    left: 5px;
+    right: 5px;
     display: none;
 
     .top {
         line-height: 3rem;
-
-        .arrow button {
-            padding: 0 20px;
-            background-color: transparent;
-            color: #333;
-            margin-left: 20px;
-            border: none;
-
-            &:focus {
-                outline: none;
-            }
-
-            &:hover {
-                cursor: pointer;
-            }
-        }
 
         .left {
             float: left;
@@ -36,7 +20,7 @@
 
         .date {
             font-weight: bold;
-            padding: 0 15px 0 20px;
+            padding: 2px 15px 0 20px;
             &:after {
                 clear: both;
             }
@@ -70,5 +54,21 @@
     .bottom {
         padding: 10px 0;
         text-align: center;
+    }
+
+    .d-picker-btn {
+        padding: 0 20px;
+        background-color: transparent;
+        color: #333;
+        margin-left: 20px;
+        border: none;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 }

@@ -50,8 +50,12 @@ $input-4: 50px;
         width: $input-2;
         text-align: right;
         color: #555;
-        font-family: Verdana, Tahoma, sans-serif;
+        line-height: 1rem;
         padding: 0;
+
+        &::-ms-clear {
+            display: none;
+        }
 
         &.user-input--right {
             margin-right: 10px;
