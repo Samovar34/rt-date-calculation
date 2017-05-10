@@ -1,6 +1,8 @@
-$input-2: 25px;
-$input-3: 35px;
-$input-4: 50px;
+$input-2: 21px;
+$input-3: 30px;
+$input-4: 40px;
+$input-text-align: left;
+$input-td-padding: 0 5px;
 
 .input {
     table {
@@ -41,24 +43,20 @@ $input-4: 50px;
 
 
     td {
-        padding: 5px;
+        padding: $input-td-padding;
     }
 
     .user-input {
         border: none;
         outline: none;
         width: $input-2;
-        text-align: right;
+        text-align: $input-text-align;
         color: #555;
         line-height: 1rem;
         padding: 0;
 
         &::-ms-clear {
             display: none;
-        }
-
-        &.user-input--right {
-            margin-right: 10px;
         }
 
         &::placeholder {
