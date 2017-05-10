@@ -34,6 +34,7 @@ RT.input = (function () {
 
         inputs = [startDay, startMonth, startYear, startHours, startMin, targetHours, targetMin];
 
+        // TODO возможно добавить валидация перед субмитом
         inputForm.on("submit", function (e) {
             e.preventDefault();
             RT.events.emit("show:result", [getDate()]);

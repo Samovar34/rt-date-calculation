@@ -12,12 +12,12 @@ html(lang="ru")
         .container
             .row
                 include ./input.pug
+            .row
+                .block
+                    .block-header
+                        .block-body.block-row--center
+                            a(href="https://github.com/unscript/rt-date-calculation") <img alt="github" style="margin-top: -4px;" height="16px" src="/img/github.png"> unscript
             include ./dpicker.pug
             include ./result.pug
         block scripts
-            script(src="/js/core.js")
-            script(src="/js/events.js")
-            script(src="/js/input.js")
-            script(src="/js/result.js")
-            script(src="/js/datepicker.js")
             script(src="/js/app.js")

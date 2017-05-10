@@ -2,6 +2,7 @@ const gulp = require("gulp"),
       scss = require("gulp-sass"),
       del  = require("del"),
       pug = require("gulp-pug"),
+      fileInclude = require("gulp-file-include"),
       browserSync = require("browser-sync").create();
 
 let path = {
@@ -23,10 +24,10 @@ let path = {
 
     src: {
         style: "src/style/*.scss",
-        js: "src/js/**/*.js",
+        js: "src/js/**/app.js",
         img: "src/img/*.*",
         fonts: "src/fonts/**/*.*",
-        views: "src/views/*.pug"
+        views: "src/views/index.pug"
     },
 
     del: "build/**/*"
@@ -57,6 +58,7 @@ gulp.task("build:style", () => {
 gulp.task("build:js", () => {
     gulp.src(path.src.js)
         // uglify
+        .pipe(fileInclude("@@"))
         .pipe(gulp.dest(path.build.js));
 });
 
